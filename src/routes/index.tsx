@@ -2,18 +2,18 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import {
   ChevronLeft, ChevronRight, ShieldCheck, BadgeCheck, Package, Award, RotateCcw, Headphones, Truck, Lock,
-  Sparkles, Home as HomeIcon, Gift, Briefcase, HeartPulse, ShoppingBasket,
+  Sparkles, Home as HomeIcon, Gift, Briefcase, HeartPulse, ShoppingBasket, MessageCircle,
 } from "lucide-react";
 import banner1 from "@/assets/banner-1.jpg";
 import banner2 from "@/assets/banner-2.jpg";
-import { categories, concerns, inr, products, useStore } from "@/lib/store";
+import { categories, concerns, focusProducts, inr, products, useStore } from "@/lib/store";
 import { ProductCard } from "@/components/site/ProductCard";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "M.K. Enterprises — Shop Quality Products Online" },
-      { name: "description", content: "Shop bestsellers, new arrivals and combos from M.K. Enterprises. Fast shipping, easy returns and secure payments across India." },
+      { name: "description", content: "Shop bestsellers, new arrivals and combos from M.K. Enterprises. Fast shipping, easy returns and direct WhatsApp ordering across India." },
       { property: "og:title", content: "M.K. Enterprises — Shop Quality Products Online" },
       { property: "og:description", content: "Bestsellers, new arrivals and combos with fast shipping across India." },
     ],
@@ -96,6 +96,10 @@ function Index() {
         </div>
       </Section>
 
+      <Section title="Focus Products" viewAll>
+        <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-4">{focusProducts.map((p) => <ProductCard key={p.id} p={p} />)}</div>
+      </Section>
+
       <Section title="Bestsellers" viewAll>
         <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-4">{best.map((p) => <ProductCard key={p.id} p={p} />)}</div>
       </Section>
@@ -139,7 +143,7 @@ function Index() {
       </Section>
 
       <section className="mx-auto grid max-w-7xl grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 px-3 sm:px-4 pb-14">
-        {([[RotateCcw, "Easy Returns", "7-day return policy"], [Headphones, "24/7 Support", "We're always here"], [Truck, "Fast Shipping", "Pan-India delivery"], [Lock, "Secure Payments", "100% protected"]] as const).map(([Icon, t, s]) => (
+        {([[RotateCcw, "Easy Returns", "7-day return policy"], [Headphones, "24/7 Support", "We're always here"], [Truck, "Fast Shipping", "Pan-India delivery"], [MessageCircle, "WhatsApp Orders", "Direct on 9111722209"]] as const).map(([Icon, t, s]) => (
           <div key={t} className="flex items-center gap-3 rounded-2xl border bg-card p-4 shadow-card">
             <span className="grid h-11 w-11 sm:h-12 sm:w-12 shrink-0 place-items-center rounded-full bg-secondary text-primary"><Icon className="h-5 w-5 sm:h-6 sm:w-6" /></span>
             <div><p className="text-sm sm:text-base font-bold">{t}</p><p className="text-xs text-muted-foreground">{s}</p></div>

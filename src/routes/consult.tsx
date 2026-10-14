@@ -154,19 +154,6 @@ function ConsultPage() {
                 </div>
               </div>
             </div>
-
-            {/* Official Registration Details */}
-            <div className="rounded-2xl border border-primary/20 bg-primary/5 p-5 space-y-3">
-              <div className="flex items-center gap-2 font-bold text-primary">
-                <ShieldCheck className="h-5 w-5 text-accent" />
-                Govt. Registered Enterprise
-              </div>
-              <div className="space-y-1.5 text-xs text-foreground/90">
-                <p><span className="font-semibold text-muted-foreground">GSTIN:</span> <span className="font-mono font-bold text-foreground">{businessInfo.gstin}</span></p>
-                <p><span className="font-semibold text-muted-foreground">UDYAM:</span> <span className="font-mono font-bold text-foreground">{businessInfo.udyam}</span></p>
-                <p className="pt-1 text-[11px] text-muted-foreground leading-relaxed"><span className="font-semibold">Partners:</span> {businessInfo.partners.join(" • ")}</p>
-              </div>
-            </div>
           </div>
 
           {/* Right Column: Enquiry Form */}

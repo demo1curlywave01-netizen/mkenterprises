@@ -12,6 +12,7 @@ export type Product = {
   category: string;
   bestseller?: boolean;
   isNew?: boolean;
+  focus?: boolean;
 };
 
 export const categories = [
@@ -25,14 +26,11 @@ export const categories = [
 export const businessInfo = {
   name: "M.K. ENTERPRISES",
   tagline: "Partners in Growth & Innovation",
-  phone: "+91 93196 13876",
-  phoneRaw: "9319613876",
-  email: "Preetivishwakarma9408@gmail.com",
-  wa: "https://wa.me/919319613876",
-  gstin: "22ACBFM7860R1ZO",
-  udyam: "CG-16-0013192",
+  phone: "+91 91117 22209",
+  phoneRaw: "9111722209",
+  email: "enterprisesmk313@gmail.com",
+  wa: "https://wa.me/919111722209",
   address: "Ward No. 7, Rajmohini Agri College Road, Azeerma, Ambikapur, Surguja (C.G.) 497001",
-  partners: ["KRISHNAA JI", "Sandeep Upadhyay", "PREETI VISHWAKARMA"],
 };
 
 export const concerns = [
@@ -44,15 +42,23 @@ export const concerns = [
   "Wellness",
 ];
 
-// [id, name, mrp, category index, bestseller, new]
-const raw: [string, string, number, number, boolean?, boolean?][] = [
-  ["mahaveni-oil", "Mahaveni Pain Oil 80ml", 299, 0, true],
-  ["mahodadhi", "Mahodadhi Syrup 450ml", 450, 0, false, true],
+// [id, name, mrp, category index, bestseller, new, focus]
+const raw: [string, string, number, number, boolean?, boolean?, boolean?][] = [
+  // 8 Official Focus Products
+  ["argoides-200", "Argoides Syrup 200ml", 350, 4, true, false, true],
+  ["argoides-450", "Argoides Syrup 450ml", 590, 4, true, false, true],
+  ["glutamil-cap", "Glutamil Capsules (1 Strip)", 432, 1, true, false, true],
+  ["mahodadhi", "Mahodadhi Syrup 450ml", 790, 0, true, false, true],
+  ["ten-days-syrup", "10 Days Syrup 200ml", 330, 2, true, true, true],
+  ["mahaveni-oil", "Mahaveni Pain Oil", 250, 0, true, false, true],
+  ["kiyo-pet", "Kiyo Pet Bottle", 590, 3, true, false, true],
+  ["kenko-gold", "Kenco Gold Capsules Bottle", 600, 1, true, false, true],
+
+  // Additional Catalog Products
+  ["g-mom-syrup", "G-Mom Syrup 200ml", 350, 4, true, true],
   ["kneejoy", "Kneejoy", 499, 0, true],
   ["dynatac", "DYNATAC", 240, 0, false, true],
-  ["kenko-gold", "Kenko Gold Multivitamin HPMC Capsule (30 caps)", 350, 1, true],
   ["jumbo-plus", "Jumbo Plus", 750, 1, true],
-  ["glutamil-cap", "Glutamil Capsule", 170, 1, false, true],
   ["platigo-g", "Platigo-G+ Tablets (10x1x10)", 311, 1],
   ["multiliv", "Multiliv Syrup 200ml", 206, 2, true],
   ["pile-tone", "Pile-Tone Syrup 200ml", 183, 2, false, true],
@@ -61,13 +67,10 @@ const raw: [string, string, number, number, boolean?, boolean?][] = [
   ["glutamil-syrup", "Glutamil Syrup", 170, 2, false, true],
   ["aargo-face-wash", "Aargo Face Wash", 199, 3, true],
   ["aargo-hair-serum", "Aargo Hair Serum", 349, 3, false, true],
-  ["kiyo-pet", "Kiyo Det HPMC", 600, 3],
   ["urocitra", "Urocitra Tablets (10x1x10)", 275, 4, true],
-  ["argoides-450", "Argoides Syrup 450ml", 590, 4, false, true],
-  ["argoides-200", "Argoides Syrup 200ml", 350, 4],
 ];
 
-export const products: Product[] = raw.map(([id, name, mrp, ci, bestseller, isNew]) => ({
+export const products: Product[] = raw.map(([id, name, mrp, ci, bestseller, isNew, focus]) => ({
   id,
   name,
   mrp,
@@ -76,7 +79,10 @@ export const products: Product[] = raw.map(([id, name, mrp, ci, bestseller, isNe
   category: categories[ci]!.slug,
   bestseller: !!bestseller,
   isNew: !!isNew,
+  focus: !!focus,
 }));
+
+export const focusProducts: Product[] = products.filter((p) => p.focus);
 
 export const inr = (n: number) => `₹${n.toLocaleString("en-IN")}`;
 

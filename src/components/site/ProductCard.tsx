@@ -7,9 +7,11 @@ export function ProductCard({ p }: { p: Product }) {
   const wished = wishlist.includes(p.id);
   return (
     <div className="group relative flex flex-col overflow-hidden rounded-2xl border bg-card shadow-card transition hover:-translate-y-1 hover:shadow-lift">
-      <span className="absolute left-3 top-3 z-10 rounded-full bg-accent px-2 py-0.5 text-xs font-bold text-accent-foreground">
-        {off}% OFF
-      </span>
+      <div className="absolute left-3 top-3 z-10 flex flex-col items-start gap-1">
+        <span className="rounded-full bg-accent px-2 py-0.5 text-xs font-bold text-accent-foreground">
+          {off}% OFF
+        </span>
+      </div>
       <button
         aria-label="Add to wishlist"
         onClick={() => toggleWish(p.id)}

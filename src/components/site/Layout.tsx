@@ -5,6 +5,7 @@ import {
   Menu, X, ChevronDown, Home, Minus, Plus, Trash2, MapPin, ShieldCheck,
 } from "lucide-react";
 import logo from "@/assets/mk-logo.png";
+import logoLight from "@/assets/mk-logo-light.png";
 import { businessInfo, categories, inr, products, useStore } from "@/lib/store";
 
 const PHONE = businessInfo.phone;
@@ -13,8 +14,12 @@ const WA = businessInfo.wa;
 
 function Logo() {
   return (
-    <Link to="/" className="flex items-center gap-2 sm:gap-3 shrink-0">
-      <img src={logo} alt="M.K. Enterprises logo" className="h-9 w-9 sm:h-11 sm:w-11 object-contain drop-shadow-sm shrink-0" />
+    <Link to="/" className="flex items-center gap-2 sm:gap-3 shrink-0 group">
+      <img
+        src={logo}
+        alt="M.K. Enterprises logo"
+        className="h-10 w-auto sm:h-12 object-contain drop-shadow-sm shrink-0 transition group-hover:scale-105"
+      />
       <span className="leading-tight">
         <span className="block text-base sm:text-lg font-extrabold tracking-tight text-primary">M.K. ENTERPRISES</span>
         <span className="hidden sm:block text-[10px] font-medium uppercase tracking-widest text-muted-foreground">Partners in Growth & Innovation</span>
@@ -170,9 +175,9 @@ function CartDrawer() {
             <Link
               to="/checkout"
               onClick={() => setCartOpen(false)}
-              className="block w-full rounded-2xl bg-accent py-3.5 text-center font-extrabold text-accent-foreground shadow-lift transition hover:brightness-105 active:scale-[0.99]"
+              className="flex w-full items-center justify-center gap-2 rounded-2xl bg-[#25D366] hover:bg-[#20bd5a] py-3.5 text-center font-extrabold text-white shadow-lift transition hover:scale-[1.01] active:scale-[0.99]"
             >
-              Proceed to Checkout
+              <MessageCircle className="h-5 w-5 fill-white" /> Order via WhatsApp
             </Link>
           </div>
         )}
@@ -187,9 +192,7 @@ function Footer() {
       <div className="mx-auto grid max-w-7xl gap-8 px-4 py-12 md:grid-cols-4">
         <div className="space-y-3 text-sm opacity-90">
           <div className="flex items-center gap-3">
-            <span className="grid h-10 w-10 place-items-center rounded-xl bg-white/10 p-1 backdrop-blur">
-              <img src={logo} alt="M.K. Enterprises logo" className="h-full w-full object-contain" />
-            </span>
+            <img src={logoLight} alt="M.K. Enterprises logo" className="h-12 w-auto object-contain" />
             <p className="text-xl font-extrabold tracking-tight">M.K. ENTERPRISES</p>
           </div>
           <p className="text-xs text-primary-foreground/80">{businessInfo.tagline}</p>
@@ -203,18 +206,6 @@ function Footer() {
         <FooterCol title="About Us" links={[["Home", "/"], ["Shop", "/collections/category-1"], ["Consult an Expert", "/consult"], ["Wishlist", "/wishlist"]]} />
         <FooterCol title="Categories" links={categories.map((c) => [c.name, `/collections/${c.slug}`])} />
         <FooterCol title="Information" links={[["About", "/about"], ["Privacy Policy", "/privacy"], ["Refund Policy", "/refund"], ["Shipping Policy", "/shipping"], ["Terms of Service", "/terms"], ["Consult / Inquiry", "/consult"]]} />
-      </div>
-
-      {/* Official Registration & Trust Bar */}
-      <div className="border-t border-primary-foreground/10 bg-black/20 px-4 py-4 text-xs">
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 opacity-80">
-          <div className="flex flex-wrap items-center gap-4">
-            <span className="inline-flex items-center gap-1.5"><ShieldCheck className="h-4 w-4 text-accent" /> Govt. Registered Enterprise</span>
-            <span className="rounded bg-white/10 px-2 py-0.5 font-mono">GSTIN: {businessInfo.gstin}</span>
-            <span className="rounded bg-white/10 px-2 py-0.5 font-mono">UDYAM: {businessInfo.udyam}</span>
-          </div>
-          <p className="text-[11px]">Partners: {businessInfo.partners.join(" • ")}</p>
-        </div>
       </div>
 
       <p className="border-t border-primary-foreground/10 py-4 text-center text-xs opacity-70">© {new Date().getFullYear()} M.K. Enterprises. All rights reserved.</p>

@@ -46,11 +46,18 @@ function CheckoutPage() {
     .map((it, idx) => `${idx + 1}. ${it.product.name} (Qty: ${it.qty}) - ${inr(it.product.price * it.qty)}`)
     .join("%0A");
 
-  const waOrderUrl = `${businessInfo.wa}?text=Hello%20M.K.%20Enterprises!%20I%20would%20like%20to%20place%20an%20order:%0A%0A${orderListText}%0A%0ATotal%20Amount:%20${inr(subtotal)}%0A%0ACustomer%20Name:%20${encodeURIComponent(form.fullName || "Customer")}%0APhone:%20${encodeURIComponent(form.phone || "")}%0AAddress:%20${encodeURIComponent(form.address || "")}`;
-
-  const handleProceedToPayment = (e: React.FormEvent) => {
+  const handleOrderWhatsApp = (e: React.FormEvent) => {
     e.preventDefault();
-    navigate({ to: "/payment" });
+    const finalWaUrl = `${businessInfo.wa}?text=${encodeURIComponent(
+      `Hello M.K. Enterprises! I would like to place an order:\n\n` +
+      items.map((it, idx) => `${idx + 1}. ${it.product.name} (Qty: ${it.qty}) - ${inr(it.product.price * it.qty)}`).join("\n") +
+      `\n\nTotal Amount: ${inr(subtotal)}` +
+      `\n\nCustomer Details:` +
+      `\nName: ${form.fullName || "Valued Customer"}` +
+      `\nPhone: ${form.phone || ""}` +
+      `\nAddress: ${form.address || ""}, ${form.city || ""}, ${form.state || ""} - ${form.pincode || ""}`
+    )}`;
+    window.open(finalWaUrl, "_blank");
   };
 
   return (
@@ -58,14 +65,14 @@ function CheckoutPage() {
       {/* Header Banner */}
       <section className="bg-brand-gradient px-4 py-10 sm:py-14 text-center text-primary-foreground">
         <div className="mx-auto max-w-3xl">
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-accent/20 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-accent backdrop-blur">
-            <Lock className="h-3.5 w-3.5" /> Step 2 of 3: Checkout
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-success/20 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-success backdrop-blur">
+            <MessageCircle className="h-3.5 w-3.5" /> Direct WhatsApp Ordering: +91 91117 22209
           </span>
           <h1 className="mt-3 text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight">
-            Delivery & Order Review
+            Order via WhatsApp
           </h1>
           <p className="mt-2 text-xs sm:text-sm md:text-base opacity-85">
-            Safe, verified delivery across India with 100% genuine Ayurvedic products
+            Fill your delivery details below to place your order directly with our team on WhatsApp ({businessInfo.phone})
           </p>
         </div>
       </section>
@@ -93,7 +100,7 @@ function CheckoutPage() {
             </div>
           </div>
         ) : (
-          <form onSubmit={handleProceedToPayment} className="grid gap-8 lg:grid-cols-12">
+          <form onSubmit={handleOrderWhatsApp} className="grid gap-8 lg:grid-cols-12">
             {/* Left Column: Delivery Address Form */}
             <div className="space-y-6 lg:col-span-7">
               <div className="rounded-3xl border bg-card p-5 sm:p-8 shadow-card">
@@ -298,23 +305,21 @@ function CheckoutPage() {
                   </div>
                 </div>
 
-                {/* Primary Payment Button (Styled like img 3) */}
+                {/* Primary WhatsApp Order Button */}
                 <div className="mt-6 space-y-3">
                   <button
                     type="submit"
-                    className="w-full flex items-center justify-center gap-2 rounded-full bg-accent px-6 py-4 text-base sm:text-lg font-extrabold text-accent-foreground shadow-lift transition hover:brightness-105 hover:scale-[1.01] active:scale-[0.99] cursor-pointer"
+                    className="w-full flex items-center justify-center gap-2.5 rounded-full bg-[#25D366] hover:bg-[#20bd5a] px-6 py-4 text-base sm:text-lg font-extrabold text-white shadow-lift transition hover:scale-[1.01] active:scale-[0.99] cursor-pointer"
                   >
-                    <span>Proceed to Payment</span>
-                    <ArrowRight className="h-5 w-5" />
+                    <MessageCircle className="h-6 w-6 fill-white" />
+                    <span>Confirm Order on WhatsApp</span>
                   </button>
 
                   <a
-                    href={waOrderUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="w-full flex items-center justify-center gap-2 rounded-full border border-success/40 bg-success/10 px-5 py-3 text-sm font-bold text-success transition hover:bg-success hover:text-success-foreground"
+                    href={`tel:${businessInfo.phoneRaw}`}
+                    className="w-full flex items-center justify-center gap-2 rounded-full border border-primary/20 bg-secondary/50 px-5 py-3 text-sm font-bold text-foreground transition hover:bg-secondary"
                   >
-                    <MessageCircle className="h-4 w-4" /> Quick Order via WhatsApp
+                    <Phone className="h-4 w-4 text-accent" /> Call Support ({businessInfo.phone})
                   </a>
                 </div>
 
